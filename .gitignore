@@ -7,6 +7,7 @@
 *.suo
 *.sw?
 .DS_Store
+.app
 .env*
 .idea
 .vscode
@@ -14,3 +15,5 @@ Thumbs.db
 __MACOS*
 node_modules
 npm-debug.*
+public/**/*.html
+public/pixelperfect
