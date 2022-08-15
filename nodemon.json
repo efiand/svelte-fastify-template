@@ -1,7 +1,0 @@
-{
-	"ext": "js",
-	"script": "./app",
-	"watch": [
-		"app"
-	]
-}

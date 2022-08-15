@@ -1,9 +1,15 @@
+*.jpg
+*.json
 *.log
+*.md
+*.png
 *.sql
 *.webp
+*.woff*
+*.yaml
+.*rc
 .DS_Store
 .app
 .env
 bundle*
 node_modules
-public/recipes

@@ -1,0 +1,97 @@
+$transitions: color, opacity, background-color, border-color, box-shadow;
+
+@define-mixin transition {
+	transition-property: $transitions;
+	transition-duration: 0.3s;
+	transition-timing-function: ease-in-out;
+}
+
+@font-face {
+	font-weight: 400;
+	font-style: normal;
+	font-family: 'Roboto';
+	font-display: swap;
+	src: local('Roboto'), url('../fonts/roboto.woff2') format('woff2');
+}
+
+html {
+	--colorBlacky: #333333;
+	--colorWhite: #ffffff;
+	--primaryColor: #000000;
+	--primaryColorLite: #000000;
+	--errorColor: #000000;
+	--errorColorLite: #000000;
+	--rightOffset: 0;
+
+	min-width: 320px;
+	margin-right: var(--rightOffset);
+	scroll-behavior: smooth;
+	overflow-y: scroll; /* чтобы содержимое не скакало влево-вправо при быстрой смене страниц */
+	overflow-anchor: none;
+	font-size: 16px;
+	line-height: 1.3;
+	font-family: 'Roboto', 'Arial', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	color: var(--colorBlacky);
+	-webkit-tap-highlight-color: transparent;
+}
+
+body {
+	display: grid;
+	grid-template-rows: 1fr min-content;
+	min-height: 100vh;
+	margin: 0;
+}
+
+a,
+button,
+input,
+select,
+textarea {
+	font: inherit;
+	color: inherit;
+
+	@mixin transition;
+}
+
+a {
+	text-decoration-skip-ink: none;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+svg {
+	fill: currentColor;
+}
+
+:focus {
+	outline: 2px solid var(--primaryColor);
+	outline-offset: 2px;
+
+	@supports selector(:focus-visible) {
+		outline: none;
+	}
+}
+
+:focus-visible {
+	outline: 2px solid var(--primaryColor);
+	outline-offset: 2px;
+
+	&:active {
+		outline: none;
+	}
+}
+
+p:empty {
+	min-height: 1.3rem;
+	visibility: hidden;
+}
+
+.visuallyHidden {
+	position: fixed;
+	clip: rect(0 0 0 0);
+}

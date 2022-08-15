@@ -1,5 +1,23 @@
 {
+	"pluginSearchDirs": [
+		"."
+	],
+	"printWidth": 120,
 	"singleQuote": true,
 	"trailingComma": "none",
-	"useTabs": true
+	"useTabs": true,
+	"overrides": [
+		{
+			"files": "*.html",
+			"options": {
+				"bracketSameLine": true
+			}
+		},
+		{
+			"files": "*.svelte",
+			"options": {
+				"parser": "svelte"
+			}
+		}
+	]
 }

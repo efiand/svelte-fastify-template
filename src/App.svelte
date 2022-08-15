@@ -1,32 +1,54 @@
-<script>
+<script context="module">
+	import './main.css';
 	import { Route, Router } from 'svelte-routing';
-	import ErrorPage from './pages/ErrorPage.svelte';
-	import IndexPage from './pages/IndexPage.svelte';
-	import PageFooter from './components/PageFooter.svelte';
-	import PageHeader from './components/PageHeader.svelte';
-
-	export let url = '';
-	export let projectName = '';
-	export let title = '';
-
-	let projectTitle = '';
-
-	$: {
-		projectTitle = [projectName, title].filter(Boolean).join(' : ');
-	}
+	import Error from './pages/Error.svelte';
+	import Index from './pages/Index.svelte';
+	import Page from './components/Page.svelte';
+	import { SvelteToast } from '@zerodevx/svelte-toast';
+	import { data } from './lib/stores.js';
+	import { noteFailure } from './lib/toast.js';
+	import { onMount } from 'svelte';
 </script>
 
-<svelte:head>
-	<title>{projectTitle}</title>
-</svelte:head>
+<script>
+	export let props = {};
 
-<Router {url}>
-	<PageHeader className="page__header" />
+	data.set(props);
 
-	<main class="page__main">
-		<Route path="/"><IndexPage {projectName} /></Route>
-		<Route path="*"><ErrorPage /></Route>
-	</main>
+	onMount(() => {
+		if (props.w3cError) {
+			noteFailure(props.w3cError);
+		}
+	});
 
-	<PageFooter className="page__footer" />
-</Router>
+	let routes = {
+		'/': Index,
+		'*': Error
+	};
+</script>
+
+<main>
+	<Router url={$data.url}>
+		{#each Object.entries(routes) as [path, Component]}
+			<Route {path} component={Page} {Component} />
+		{/each}
+	</Router>
+</main>
+
+{#if typeof window !== 'undefined'}
+	<SvelteToast />
+{/if}
+
+<style>
+	main {
+		padding: 2rem;
+
+		@media $tablet {
+			padding: 2rem 3rem 4rem;
+		}
+
+		@media $desktop {
+			padding: 3rem 5rem 6rem;
+		}
+	}
+</style>
