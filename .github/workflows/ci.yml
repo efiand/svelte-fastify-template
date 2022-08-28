@@ -1,28 +1,36 @@
-name: Project check and deploy
+name: CI
+
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+
 jobs:
-  check-and-deploy:
-    runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-18.04
     steps:
       - name: Set up Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: "16"
+          node-version: '16'
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
         with:
           ref: main
       - name: Install dependencies
         run: |
-          npm ci
-      - name: Run lint and build
+          npm i
+      - name: Run test
         run: |
-          npm run build
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+          npm test
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          host: ${{ secrets.DEPLOY_SERVER_HOST }}
+          port: ${{ secrets.DEPLOY_SERVER_PORT }}
+          username: ${{ secrets.DEPLOY_SERVER_USERNAME }}
+          password: ${{ secrets.DEPLOY_SERVER_PASSWORD }}
+          script: |
+            cd /home/efiand/efiand.ru
+            git pull --rebase
+            npm ci
+            npm run build

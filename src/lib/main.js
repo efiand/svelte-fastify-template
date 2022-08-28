@@ -1,4 +1,4 @@
-import App from '@/components/Page.svelte';
+import App from '@/routes/+layout.svelte';
 
 new App({
 	hydrate: true,

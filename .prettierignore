@@ -15,6 +15,6 @@
 .vscode
 Thumbs.db
 __MACOS*
-dist
 node_modules
 npm-debug.*
+public

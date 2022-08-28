@@ -1,5 +1,15 @@
 {
+	"pluginSearchDirs": ["."],
+	"printWidth": 100,
 	"singleQuote": true,
 	"trailingComma": "none",
-	"useTabs": true
+	"useTabs": true,
+	"overrides": [
+		{
+			"files": "*.svelte",
+			"options": {
+				"parser": "svelte"
+			}
+		}
+	]
 }
